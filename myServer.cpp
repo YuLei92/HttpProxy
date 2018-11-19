@@ -248,11 +248,13 @@ string extractRequestURL(char* buffer){
 
 CacheNode* notInCache(string url){
     CacheNode* new_Node = getPage(url);
-    if(cache.size() >= 10){
+    if(new_Node->expire.length() > 1 || new_Node->lastModifiedTime.length() > 1){
+      if(cache.size() >= 10){
       //choose the evict
-      eviction(new_Node);
+        eviction(new_Node);
+      }
+      cache.insert(std::pair<string, CacheNode*>(url, new_Node));
     }
-    cache.insert(std::pair<string, CacheNode*>(url, new_Node));
     return new_Node;
 }
 
