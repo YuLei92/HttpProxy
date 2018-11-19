@@ -60,7 +60,7 @@ CacheNode* createNode(string DomainName, string PagePath, string body){
   string delete_sign("\r\n\r\n");
   vector<string> toplevel = strsplit(body, delete_sign); 
 //  printf("Not allowed.. response should have only header and body.\n");
-//  printf("The size is: %d\n", toplevel.size());
+  printf("The size is: %d\n", toplevel.size());
   /*
   if(toplevel.size() == 1 || toplevel.size() > 2)
   {
@@ -91,7 +91,7 @@ CacheNode* createNode(string DomainName, string PagePath, string body){
 
     if(fieldTokens.at(0) == "Expires")
       node->expire = fieldTokens.at(1);
-    else if(fieldTokens.at(0) == "Last-modified")
+    else if(fieldTokens.at(0) == "Last-Modified")
       node->lastModifiedTime = fieldTokens.at(1);
   }
   return node;
@@ -101,7 +101,7 @@ CacheNode* createNode(string DomainName, string PagePath, string body){
 vector<string> strsplit(string s, string delete_sign){
   vector<string> tokens;
   int start = 0;
-  int len = s.length();
+  socklen_t len = s.length();
   size_t f;
   int found;
   string token;
