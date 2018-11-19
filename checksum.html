@@ -1,0 +1,157 @@
+HTTP/1.0 200 OK
+Date: Mon, 19 Nov 2018 22:01:30 GMT
+P3P: policyref="http://info.yahoo.com/w3c/p3p.xml", CP="CAO DSP COR CUR ADM DEV TAI PSA PSD IVAi IVDi CONi TELo OTPi OUR DELi SAMi OTRi UNRi PUBi IND PHY ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC GOV"
+X-Host: p11w51.geo.bf1.yahoo.com
+X-INKT-URI: http://www.netfor2.com//checksum.html
+X-INKT-SITE: http://www.netfor2.com
+Last-Modified: Fri, 27 Jun 2003 18:39:05 GMT
+Accept-Ranges: bytes
+Content-Length: 8155
+Content-Type: text/html
+Age: 0
+Server: ATS/7.1.2
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>IP Checksum Introduction</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p><font size="4"><strong><u>Short description of the Internet
+checksum</u></strong></font></p>
+
+<p><font size="4"><strong><u>IP checksum definition</u></strong></font></p>
+
+<p>The IP checksum is the 16 bit one's complement of the one's
+complement sum of all 16 bit words in the header.</p>
+
+<p>One question many people may ask is &quot;What is the 1's
+complement sum ?&quot;. This is because all computers utilize the
+2's complement representation and the 1's complement is not used.
+The following gives a short introduction.</p>
+
+<p><strong><u>2's complement fixed point integers (8-bit)</u></strong></p>
+
+<table border="0">
+    <tr>
+        <td><strong>Binary</strong></td>
+        <td align="center"><strong>Decimal</strong></td>
+        <td align="center"><strong>Hex</strong></td>
+    </tr>
+    <tr>
+        <td>0000 0000</td>
+        <td align="center">0</td>
+        <td align="center">00</td>
+    </tr>
+    <tr>
+        <td>0000 0001</td>
+        <td align="center">1</td>
+        <td align="center">01</td>
+    </tr>
+    <tr>
+        <td>0000 0010</td>
+        <td align="center">2</td>
+        <td align="center">02</td>
+    </tr>
+    <tr>
+        <td>0000 0011</td>
+        <td align="center">3</td>
+        <td align="center">03</td>
+    </tr>
+    <tr>
+        <td>1111 1111</td>
+        <td align="center">-1</td>
+        <td align="center">FF</td>
+    </tr>
+    <tr>
+        <td>1111 1110</td>
+        <td align="center">-2</td>
+        <td align="center">FE</td>
+    </tr>
+    <tr>
+        <td>1111 1101</td>
+        <td align="center">-3</td>
+        <td align="center">FD</td>
+    </tr>
+</table>
+
+<p>Let's add two intergers: <br>
+-3 + 5 = 2 <br>
+FD + 05 = 01 02<br>
+<strong>Discarding</strong> the carry (01) gives the correct
+result.</p>
+
+<p><strong><u>1's complement fixed point integers (8-bit)</u></strong></p>
+
+<table border="0">
+    <tr>
+        <td><strong>Binary</strong></td>
+        <td align="center"><strong>Decimal</strong></td>
+        <td align="center"><strong>Hex</strong></td>
+    </tr>
+    <tr>
+        <td>0000 0000</td>
+        <td align="center">0</td>
+        <td align="center">00</td>
+    </tr>
+    <tr>
+        <td>0000 0001</td>
+        <td align="center">1</td>
+        <td align="center">01</td>
+    </tr>
+    <tr>
+        <td>0000 0010</td>
+        <td align="center">2</td>
+        <td align="center">02</td>
+    </tr>
+    <tr>
+        <td>0000 0011</td>
+        <td align="center">3</td>
+        <td align="center">03</td>
+    </tr>
+    <tr>
+        <td>1111 1111</td>
+        <td align="center">-0</td>
+        <td align="center">FF</td>
+    </tr>
+    <tr>
+        <td>1111 1110</td>
+        <td align="center">-1</td>
+        <td align="center">FE</td>
+    </tr>
+    <tr>
+        <td>1111 1101</td>
+        <td align="center">-2</td>
+        <td align="center">FD</td>
+    </tr>
+    <tr>
+        <td>1111 1100</td>
+        <td align="center">-3</td>
+        <td align="center">FC</td>
+    </tr>
+</table>
+
+<p>Add the same numbers: <br>
+-3 + 5 = 2<br>
+FC + 05 = 01 01<br>
+<strong>Adding</strong> the carry (01) to the LSB (01) gives the
+correct result:<br>
+01 + 01 = 02</p>
+
+<p>So, the 1's complement sum is done by summing the numbers and
+adding the carry (or carries) to the result..</p>
+
+<p><font size="3"><strong><u>Simple Internet checksum example<br>
+</u></strong></font></p>
+
+<p>Suppose we have an 8-bit, 2's complement, machine and send the
+packet </p>
+
+<p>FE 05 00 </p>
+
+<p>where 00 is
