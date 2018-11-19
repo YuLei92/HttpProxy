@@ -59,13 +59,15 @@ CacheNode* createNode(string DomainName, string PagePath, string body){
 
   string delete_sign("\r\n\r\n");
   vector<string> toplevel = strsplit(body, delete_sign); 
-
+//  printf("Not allowed.. response should have only header and body.\n");
+//  printf("The size is: %d\n", toplevel.size());
+  /*
   if(toplevel.size() == 1 || toplevel.size() > 2)
   {
     printf("Not allowed.. response should have only header and body.\n");
     exit(0);
   }
-
+*/
   //now take the header and break it up
   string httpHdr = toplevel.at(0);
   delete_sign = "\r\n";
@@ -369,7 +371,7 @@ string cutURL(string url){
   }else{
     result = url;
   }
-  return url;
+  return result;
 }
 
 time_t getTime()
@@ -408,7 +410,7 @@ time_t stringToTimeT(string timeString){
 
 
 void printCache(){
-  printf("================= Cache List ================= ");
+  printf("================= Cache List ================= \n");
   int cache_count = 1;
   string s_LA;
   CacheNode* temp_node;
@@ -421,5 +423,5 @@ void printCache(){
     printf("Last Modified: %s\n", temp_node->lastModifiedTime.c_str());
     printf("Expire: %s\n\n", temp_node->expire.c_str());
   }
-  printf("================= End List ================= ");
+  printf("================= End List ================= \n");
 }
